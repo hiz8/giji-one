@@ -19,6 +19,8 @@ import { CheckListPlugin } from "@lexical/react/LexicalCheckListPlugin";
 import LexicalErrorBoundary from "@lexical/react/LexicalErrorBoundary";
 import { TRANSFORMERS } from "@lexical/markdown";
 
+import { EmojiPickerPlugin } from "./plugins/member-picker";
+
 import styles from "./editor.module.css";
 
 const theme: EditorThemeClasses = {
@@ -77,11 +79,25 @@ const initialConfig = {
   ],
 };
 
+type Member = {
+  name: string;
+  aliases: string[];
+};
+const members: Member[] = [
+  {
+    name: "田中太郎",
+    aliases: ["tanaka taro"],
+  },
+  {
+    name: "山田花子",
+    aliases: ["yamada hanako"],
+  },
+];
+
 export function Editor() {
   const [, setEditorState] = useState("");
   function onChange(editorState: EditorState) {
     const editorStateJSON = editorState.toJSON();
-    console.log(editorStateJSON);
     setEditorState(JSON.stringify(editorStateJSON));
   }
 
@@ -98,6 +114,8 @@ export function Editor() {
       <ListPlugin />
       <MarkdownShortcutPlugin transformers={TRANSFORMERS} />
       <OnChangePlugin onChange={onChange} />
+
+      <EmojiPickerPlugin members={members} />
     </LexicalComposer>
   );
 }
