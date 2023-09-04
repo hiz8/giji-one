@@ -6,6 +6,7 @@ import { ListNode, ListItemNode } from "@lexical/list";
 import { HeadingNode, QuoteNode } from "@lexical/rich-text";
 import { HorizontalRuleNode } from "@lexical/react/LexicalHorizontalRuleNode";
 import { LexicalComposer } from "@lexical/react/LexicalComposer";
+import { HashtagNode } from "@lexical/hashtag";
 
 import { RichTextPlugin } from "@lexical/react/LexicalRichTextPlugin";
 import { ContentEditable } from "@lexical/react/LexicalContentEditable";
@@ -20,6 +21,7 @@ import LexicalErrorBoundary from "@lexical/react/LexicalErrorBoundary";
 import { TRANSFORMERS } from "@lexical/markdown";
 
 import { EmojiPickerPlugin } from "./plugins/member-picker";
+import { HashtagPlugin, type HashTagState } from "./plugins/hashtag";
 
 import styles from "./editor.module.css";
 
@@ -76,6 +78,7 @@ const initialConfig = {
     CodeNode,
     HorizontalRuleNode,
     LinkNode,
+    HashtagNode,
   ],
 };
 
@@ -101,6 +104,10 @@ export function Editor() {
     setEditorState(JSON.stringify(editorStateJSON));
   }
 
+  function handleUpdateHashtagState(hashtags: HashTagState) {
+    console.log("handleUpdateHashtagState", hashtags);
+  }
+
   return (
     <LexicalComposer initialConfig={initialConfig}>
       <RichTextPlugin
@@ -116,6 +123,7 @@ export function Editor() {
       <OnChangePlugin onChange={onChange} />
 
       <EmojiPickerPlugin members={members} />
+      <HashtagPlugin onUpdateHashtagState={handleUpdateHashtagState} />
     </LexicalComposer>
   );
 }
