@@ -11,8 +11,10 @@
   },
   "dependencies": {
     "@lexical/react": "^0.12.0",
+    "jotai": "^2.4.1",
     "lexical": "^0.12.0",
     "react": "^18.2.0",
+    "react-aria-components": "^1.0.0-alpha.6",
     "react-dom": "^18.2.0"
   },
   "devDependencies": {

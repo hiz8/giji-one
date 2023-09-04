@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { useAtomValue } from "jotai";
+
 import type { EditorState, EditorThemeClasses } from "lexical";
 import { CodeNode } from "@lexical/code";
 import { LinkNode } from "@lexical/link";
@@ -22,6 +24,8 @@ import { TRANSFORMERS } from "@lexical/markdown";
 
 import { EmojiPickerPlugin } from "./plugins/member-picker";
 import { HashtagPlugin, type HashTagState } from "./plugins/hashtag";
+
+import { MemberToolbar, memberAtom } from "./member-toolbar";
 
 import styles from "./editor.module.css";
 
@@ -82,21 +86,6 @@ const initialConfig = {
   ],
 };
 
-type Member = {
-  name: string;
-  aliases: string[];
-};
-const members: Member[] = [
-  {
-    name: "田中太郎",
-    aliases: ["tanaka taro"],
-  },
-  {
-    name: "山田花子",
-    aliases: ["yamada hanako"],
-  },
-];
-
 export function Editor() {
   const [, setEditorState] = useState("");
   function onChange(editorState: EditorState) {
@@ -104,12 +93,15 @@ export function Editor() {
     setEditorState(JSON.stringify(editorStateJSON));
   }
 
+  const members = useAtomValue(memberAtom);
+
   function handleUpdateHashtagState(hashtags: HashTagState) {
     console.log("handleUpdateHashtagState", hashtags);
   }
 
   return (
     <LexicalComposer initialConfig={initialConfig}>
+      <MemberToolbar />
       <RichTextPlugin
         contentEditable={<ContentEditable className={styles.root} />}
         placeholder={<div>Enter some text...</div>}
