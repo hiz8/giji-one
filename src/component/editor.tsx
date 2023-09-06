@@ -25,8 +25,8 @@ import { TRANSFORMERS } from "@lexical/markdown";
 import { EmojiPickerPlugin } from "./plugins/member-picker";
 import { HashtagPlugin, type HashTagState } from "./plugins/hashtag";
 
-import { MemberToolbar, memberAtom } from "./member-toolbar";
-import { HashtagViewer, hashtagAtom } from "./hashtag-viewer";
+import { memberAtom } from "./member-toolbar";
+import { hashtagAtom } from "./hashtag-viewer";
 
 import styles from "./editor.module.css";
 
@@ -103,23 +103,23 @@ export function Editor() {
   }
 
   return (
-    <LexicalComposer initialConfig={initialConfig}>
-      <MemberToolbar />
-      <HashtagViewer />
-      <RichTextPlugin
-        contentEditable={<ContentEditable className={styles.root} />}
-        placeholder={<div>Enter some text...</div>}
-        ErrorBoundary={LexicalErrorBoundary}
-      />
-      <HistoryPlugin />
-      <TabIndentationPlugin />
-      <CheckListPlugin />
-      <ListPlugin />
-      <MarkdownShortcutPlugin transformers={TRANSFORMERS} />
-      <OnChangePlugin onChange={onChange} />
+    <div id="editor">
+      <LexicalComposer initialConfig={initialConfig}>
+        <RichTextPlugin
+          contentEditable={<ContentEditable className={styles.root} />}
+          placeholder={null}
+          ErrorBoundary={LexicalErrorBoundary}
+        />
+        <HistoryPlugin />
+        <TabIndentationPlugin />
+        <CheckListPlugin />
+        <ListPlugin />
+        <MarkdownShortcutPlugin transformers={TRANSFORMERS} />
+        <OnChangePlugin onChange={onChange} />
 
-      <EmojiPickerPlugin members={members} />
-      <HashtagPlugin onUpdateHashtagState={handleUpdateHashtagState} />
-    </LexicalComposer>
+        <EmojiPickerPlugin members={members} />
+        <HashtagPlugin onUpdateHashtagState={handleUpdateHashtagState} />
+      </LexicalComposer>
+    </div>
   );
 }

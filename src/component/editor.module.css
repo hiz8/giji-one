@@ -1,5 +1,9 @@
 .root {
-  border: 1px solid #ccc;
+  font-size: 16px;
+  line-height: 1.75;
+  height: 100%;
+  padding: 20px 20px 0 20px;
+  box-sizing: border-box;
 
   &:focus {
     outline: none;
@@ -8,7 +12,7 @@
 
 /**
  * Editor's theme
- * 参考: https://github.com/facebook/lexical/blob/main/packages/lexical-playground/src/themes/PlaygroundEditorTheme.css
+ * ref: https://github.com/facebook/lexical/blob/main/packages/lexical-playground/src/themes/PlaygroundEditorTheme.css
  */
 
 .placeholder {
@@ -42,27 +46,27 @@
 }
 
 .headingH1 {
-  font-size: 3.2em;
+  font-size: 1.6em;
   line-height: 1.1;
 }
 
 .headingH2 {
-  font-size: 2.4em;
-  line-height: 1.1;
-}
-
-.headingH3 {
-  font-size: 1.8em;
-  line-height: 1.1;
-}
-
-.headingH4 {
   font-size: 1.4em;
   line-height: 1.1;
 }
 
-.headingH5 {
+.headingH3 {
   font-size: 1.2em;
+  line-height: 1.1;
+}
+
+.headingH4 {
+  font-size: 1.1em;
+  line-height: 1.1;
+}
+
+.headingH5 {
+  font-size: 1em;
   line-height: 1.1;
 }
 
@@ -110,7 +114,7 @@
 
 .listUl,
 .listOl {
-  list-style-position: inside;
+  padding-left: 24px;
 }
 
 .listItem {

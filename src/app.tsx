@@ -1,12 +1,14 @@
 import { Editor } from "./component/editor";
-import styles from "./app.module.css";
+import { MemberToolbar } from "./component/member-toolbar";
+import { HashtagViewer } from "./component/hashtag-viewer";
 
 function App() {
   return (
-    <>
-      <h1 className={styles.test}>Gizi one</h1>
+    <div id="container">
+      <MemberToolbar />
       <Editor />
-    </>
+      <HashtagViewer />
+    </div>
   );
 }
 
