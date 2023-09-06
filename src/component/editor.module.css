@@ -47,11 +47,13 @@
 
 .headingH1 {
   font-size: 1.6em;
+  font-weight: 400;
   line-height: 1.1;
 }
 
 .headingH2 {
   font-size: 1.4em;
+  font-weight: 400;
   line-height: 1.1;
 }
 
