@@ -1,0 +1,92 @@
+.root {
+  display: flex;
+  gap: 10px;
+  padding-inline: 20px;
+  overflow-x: scroll;
+}
+
+.tagGroup {
+  display: flex;
+}
+
+.labelIcon {
+  display: flex;
+  align-items: center;
+}
+
+.tagList {
+  display: flex;
+  align-items: center;
+}
+
+.tag {
+  & > div {
+    display: flex;
+    align-items: center;
+    margin-inline-start: 10px;
+    word-break: keep-all;
+  }
+}
+
+.form {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+}
+
+.nameInput {
+  padding: 5px;
+  border-radius: 4px 0 0 4px;
+  border: 1px solid #ccc;
+  width: 10em;
+}
+
+.aliasesInput {
+  padding: 5px;
+  border-radius: 0 4px 4px 0;
+  border: 1px solid #ccc;
+  margin-inline-start: 2px;
+  width: 10em;
+}
+
+.button {
+  padding: 0;
+  background: none;
+  border: none;
+  height: 40px;
+  width: 32px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  font-size: 22px;
+  color: #666;
+  cursor: pointer;
+
+  &:hover {
+    color: #111;
+  }
+}
+
+.removeButton {
+  padding: 0;
+  background: none;
+  border: none;
+  height: 40px;
+  width: 32px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  font-size: 22px;
+  color: #666;
+  cursor: pointer;
+
+  &:hover {
+    color: #111;
+  }
+}
+
+.errorMessage {
+  color: red;
+}
