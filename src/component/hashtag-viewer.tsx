@@ -1,4 +1,6 @@
+import { Fragment } from "react";
 import { atom, useAtom } from "jotai";
+import styles from "./hashtag-viewer.module.css";
 
 type Hashtag = Record<
   number,
@@ -24,14 +26,16 @@ export function HashtagViewer() {
   }, {} as Record<string, string[]>);
 
   return (
-    <div>
+    <div id="hashtags" className={styles.root}>
       {Object.entries(groupedData).map(([key, values]) => (
-        <div key={key}>
-          <h2>{key}</h2>
-          {values.map((value) => {
-            return <div key={value}>{value}</div>;
-          })}
-        </div>
+        <Fragment key={key}>
+          <h2 className={styles.headline}>{key.slice(1)}</h2>
+          <ul className={styles.list}>
+            {values.map((value) => {
+              return <li key={value}>{value}</li>;
+            })}
+          </ul>
+        </Fragment>
       ))}
     </div>
   );
