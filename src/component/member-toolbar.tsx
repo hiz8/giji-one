@@ -1,5 +1,5 @@
 import { useState, useRef } from "react";
-import { atom, useAtom } from "jotai";
+import { useAtom } from "jotai";
 import {
   TagGroup,
   TagList,
@@ -8,16 +8,9 @@ import {
   TextField,
   Input,
 } from "react-aria-components";
+import { memberAtom } from "../atoms/member";
 
 import styles from "./member-toolbar.module.css";
-
-type Member = {
-  id: string;
-  name: string;
-  aliases: string[];
-};
-
-export const memberAtom = atom<Member[]>([]);
 
 export function MemberToolbar() {
   const [members, setMembers] = useAtom(memberAtom);

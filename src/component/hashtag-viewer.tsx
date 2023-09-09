@@ -1,16 +1,7 @@
 import { Fragment } from "react";
-import { atom, useAtom } from "jotai";
+import { useAtom } from "jotai";
+import { hashtagAtom } from "../atoms/hashtag";
 import styles from "./hashtag-viewer.module.css";
-
-type Hashtag = Record<
-  number,
-  {
-    hashtag: string;
-    text: string;
-  }
->;
-
-export const hashtagAtom = atom<Hashtag>({});
 
 export function HashtagViewer() {
   const [data] = useAtom(hashtagAtom);

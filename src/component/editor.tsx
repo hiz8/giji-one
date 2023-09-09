@@ -26,8 +26,8 @@ import { AutoFocusPlugin } from "./plugins/auto-focus";
 import { EmojiPickerPlugin } from "./plugins/member-picker";
 import { HashtagPlugin, type HashTagState } from "./plugins/hashtag";
 
-import { memberAtom } from "./member-toolbar";
-import { hashtagAtom } from "./hashtag-viewer";
+import { memberAtom } from "../atoms/member";
+import { hashtagAtom } from "../atoms/hashtag";
 
 import styles from "./editor.module.css";
 
