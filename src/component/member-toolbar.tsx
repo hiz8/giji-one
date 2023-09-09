@@ -101,7 +101,7 @@ export function MemberToolbar() {
         </TagList>
       </TagGroup>
       <form onSubmit={handleSubmit} className={styles.form}>
-        <TextField validationState={errorMessage !== "" ? "invalid" : "valid"}>
+        <TextField isInvalid={errorMessage !== ""} isRequired={true}>
           <Input
             name="name"
             placeholder="name"
