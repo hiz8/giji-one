@@ -22,6 +22,7 @@ import { CheckListPlugin } from "@lexical/react/LexicalCheckListPlugin";
 import LexicalErrorBoundary from "@lexical/react/LexicalErrorBoundary";
 import { TRANSFORMERS } from "@lexical/markdown";
 
+import { AutoFocusPlugin } from "./plugins/auto-focus";
 import { EmojiPickerPlugin } from "./plugins/member-picker";
 import { HashtagPlugin, type HashTagState } from "./plugins/hashtag";
 
@@ -121,6 +122,7 @@ export function Editor() {
         <MarkdownShortcutPlugin transformers={TRANSFORMERS} />
         <OnChangePlugin onChange={onChange} />
 
+        <AutoFocusPlugin />
         <EmojiPickerPlugin members={members} />
         <HashtagPlugin onUpdateHashtagState={handleUpdateHashtagState} />
       </LexicalComposer>
