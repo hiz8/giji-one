@@ -1,9 +1,9 @@
 .root {
   display: flex;
+  flex: 1;
   gap: 10px;
-  padding-inline: 20px;
-  overflow-x: scroll;
-  background-color: #f9fafb;
+  padding-inline: 40px 20px;
+  overflow-x: auto;
 }
 
 .tagGroup {

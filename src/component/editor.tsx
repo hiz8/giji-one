@@ -106,7 +106,11 @@ export function Editor() {
     <div id="editor">
       <LexicalComposer initialConfig={initialConfig}>
         <RichTextPlugin
-          contentEditable={<ContentEditable className={styles.root} />}
+          contentEditable={
+            <div className={styles.outer}>
+              <ContentEditable className={styles.root} />
+            </div>
+          }
           placeholder={null}
           ErrorBoundary={LexicalErrorBoundary}
         />
