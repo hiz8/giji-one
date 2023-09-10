@@ -1,3 +1,5 @@
+![cover](https://github.com/hiz8/giji-one/assets/7459529/0a71ec86-5d4d-4b46-8900-ec076646f5a6)
+
 # Giji one
 
 Giji one is a tool for the assistance of people in the creation of meeting minutes.
@@ -7,6 +9,7 @@ Giji one is a tool for the assistance of people in the creation of meeting minut
 Start the live-reload server for local development:
 
 ```
+
 $ npm run dev
 ```
 
