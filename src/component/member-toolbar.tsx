@@ -39,6 +39,7 @@ export function MemberToolbar() {
 
     if (nameInputRef.current) {
       nameInputRef.current.value = "";
+      nameInputRef.current.focus();
     }
     if (aliasesInputRef.current) {
       aliasesInputRef.current.value = "";

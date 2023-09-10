@@ -1,4 +1,4 @@
-import { atom } from "jotai";
+import { atomWithStorage } from "jotai/utils";
 
 type Member = {
   id: string;
@@ -6,4 +6,4 @@ type Member = {
   aliases: string[];
 };
 
-export const memberAtom = atom<Member[]>([]);
+export const memberAtom = atomWithStorage<Member[]>("member", []);
