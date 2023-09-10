@@ -28,9 +28,9 @@ export function MemberToolbar() {
       return;
     }
 
-    // 同じ名前のメンバーがいたら追加しない
+    // If there is a member with the same name, it will not be added.
     if (members.some((member) => member.name === name)) {
-      setErrorMessage("同じ名前のメンバーがいます");
+      setErrorMessage("The name is already in use.");
       return;
     }
 

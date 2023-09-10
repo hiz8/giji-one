@@ -74,7 +74,7 @@ function onError(error: unknown) {
 }
 
 const initialConfig = {
-  namespace: "GiziEditor",
+  namespace: "GijiEditor",
   theme,
   onError,
   nodes: [

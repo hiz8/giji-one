@@ -4,7 +4,7 @@ export function Logo() {
   return (
     <div className={styles.root}>
       <h1 className={styles.bland}>
-        <span>Gizi</span>one
+        <span>Giji</span>one
       </h1>
     </div>
   );
