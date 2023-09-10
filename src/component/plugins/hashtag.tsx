@@ -6,7 +6,7 @@
  *
  */
 
-import type { TextNode } from "lexical";
+import { $getNodeByKey, TextNode } from "lexical";
 
 import { $createHashtagNode, HashtagNode } from "@lexical/hashtag";
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
@@ -259,14 +259,13 @@ export function HashtagPlugin(props: HashtagPluginProps): JSX.Element | null {
   const TagMap = useRef(new Map<string, { hashtag: string; text: string }>());
   useEffect(() => {
     const removeUpdateListener = editor.registerNodeTransform(
-      HashtagNode,
+      TextNode,
       (node) => {
-        const key = node.__key;
-        const hashtag = node.getTextContent();
-        const prev = node.getPreviousSibling();
-
-        if (prev && !TagMap.current.has(key)) {
-          const text = prev.getTextContent().trim();
+        const nextSlibling = node.getNextSibling();
+        if (nextSlibling?.getType() === "hashtag") {
+          const key = nextSlibling.__key;
+          const hashtag = nextSlibling.getTextContent();
+          const text = node.getTextContent().trim();
           TagMap.current.set(key, { hashtag, text });
         }
       }
@@ -277,22 +276,53 @@ export function HashtagPlugin(props: HashtagPluginProps): JSX.Element | null {
     };
   }, [editor, props]);
 
+  useEffect(() => {
+    const removeMutationListener = editor.registerMutationListener(
+      HashtagNode,
+      (mutatedNodes) => {
+        for (const [nodeKey, mutation] of mutatedNodes) {
+          if (mutation === "created" || mutation === "updated") {
+            editor.update(() => {
+              const node = $getNodeByKey(nodeKey);
+              const prevNode = node?.getPreviousSibling();
+              if (node && prevNode) {
+                const hashtag = node.getTextContent();
+                const text = prevNode.getTextContent().trim();
+                TagMap.current.set(nodeKey, { hashtag, text });
+              }
+            });
+          } else if (mutation === "destroyed") {
+            TagMap.current.delete(nodeKey);
+          }
+        }
+      }
+    );
+
+    return () => {
+      removeMutationListener();
+    };
+  }, [editor]);
+
   const tagMapCache = useRef("");
 
   useEffect(() => {
-    if (TagMap.current.size) {
-      const entries = Object.fromEntries(TagMap.current.entries());
-      const cache = JSON.stringify(entries);
-      if (cache !== tagMapCache.current) {
-        tagMapCache.current = cache;
-        props.onUpdateHashtagState(
-          Object.fromEntries(TagMap.current.entries())
-        );
+    const removeUpdateListener = editor.registerUpdateListener(() => {
+      if (TagMap.current.size) {
+        const entries = Object.fromEntries(TagMap.current.entries());
+        const cache = JSON.stringify(entries);
+        if (cache !== tagMapCache.current) {
+          tagMapCache.current = cache;
+          props.onUpdateHashtagState(
+            Object.fromEntries(TagMap.current.entries())
+          );
+        }
+      } else {
+        props.onUpdateHashtagState({});
       }
-    }
+    });
 
-    TagMap.current.clear();
-  }, [props]);
+    return () => removeUpdateListener();
+  }, [editor, props]);
 
   useEffect(() => {
     if (!editor.hasNodes([HashtagNode])) {

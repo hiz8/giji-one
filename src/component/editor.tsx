@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef } from "react";
 import { useAtomValue, useSetAtom } from "jotai";
 
 import type { EditorState, EditorThemeClasses } from "lexical";
@@ -22,10 +22,11 @@ import { CheckListPlugin } from "@lexical/react/LexicalCheckListPlugin";
 import LexicalErrorBoundary from "@lexical/react/LexicalErrorBoundary";
 import { TRANSFORMERS } from "@lexical/markdown";
 
-import { AutoFocusPlugin } from "./plugins/auto-focus";
+import { EditroStatePlugin } from "./plugins/editor-state";
 import { EmojiPickerPlugin } from "./plugins/member-picker";
 import { HashtagPlugin, type HashTagState } from "./plugins/hashtag";
 
+import { editorStateAtom } from "../atoms/editor-state";
 import { memberAtom } from "../atoms/member";
 import { hashtagAtom } from "../atoms/hashtag";
 
@@ -89,8 +90,15 @@ const initialConfig = {
 };
 
 export function Editor() {
-  const [, setEditorState] = useState("");
+  const isFirstRender = useRef(true);
+  const setEditorState = useSetAtom(editorStateAtom);
+
   function onChange(editorState: EditorState) {
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      return;
+    }
+
     const editorStateJSON = editorState.toJSON();
     setEditorState(JSON.stringify(editorStateJSON));
   }
@@ -122,7 +130,7 @@ export function Editor() {
         <MarkdownShortcutPlugin transformers={TRANSFORMERS} />
         <OnChangePlugin onChange={onChange} />
 
-        <AutoFocusPlugin />
+        <EditroStatePlugin />
         <EmojiPickerPlugin members={members} />
         <HashtagPlugin onUpdateHashtagState={handleUpdateHashtagState} />
       </LexicalComposer>
