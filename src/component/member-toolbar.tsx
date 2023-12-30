@@ -7,6 +7,8 @@ import {
   Button,
   TextField,
   Input,
+  Form,
+  FieldError,
 } from "react-aria-components";
 import { memberAtom } from "../atoms/member";
 
@@ -14,9 +16,10 @@ import styles from "./member-toolbar.module.css";
 
 export function MemberToolbar() {
   const [members, setMembers] = useAtom(memberAtom);
-  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [validationErrors, setValidationErrors] = useState<
+    Record<string, string>
+  >({});
   const nameInputRef = useRef<HTMLInputElement>(null);
-  const aliasesInputRef = useRef<HTMLInputElement>(null);
 
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -30,20 +33,14 @@ export function MemberToolbar() {
 
     // If there is a member with the same name, it will not be added.
     if (members.some((member) => member.name === name)) {
-      setErrorMessage("The name is already in use.");
+      setValidationErrors({ name: "This name is already used." });
       return;
     }
 
     setMembers([...members, { name, aliases: aliases.split(" "), id: name }]);
-    setErrorMessage(null);
-
-    if (nameInputRef.current) {
-      nameInputRef.current.value = "";
-      nameInputRef.current.focus();
-    }
-    if (aliasesInputRef.current) {
-      aliasesInputRef.current.value = "";
-    }
+    setValidationErrors({});
+    nameInputRef.current?.focus();
+    event.currentTarget.reset();
   }
 
   function handleRemove(keys: Set<React.Key>) {
@@ -77,7 +74,7 @@ export function MemberToolbar() {
           {(item) => (
             <Tag className={styles.tag}>
               {item.name}{" "}
-              <Button slot="remove" className={styles.removeButton}>
+              <Button slot="remove">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="1em"
@@ -94,21 +91,30 @@ export function MemberToolbar() {
           )}
         </TagList>
       </TagGroup>
-      <form onSubmit={handleSubmit} className={styles.form}>
-        <TextField isInvalid={errorMessage !== ""} isRequired={true}>
+
+      <Form
+        onSubmit={handleSubmit}
+        className={styles.form}
+        validationErrors={validationErrors}
+      >
+        <TextField
+          name="name"
+          isRequired={true}
+          className={styles.formTextField}
+        >
           <Input
-            name="name"
             placeholder="name"
             ref={nameInputRef}
-            className={styles.nameInput}
+            className={styles.formTextFieldInput}
           />
+          <FieldError className={styles.formFieldError} />
         </TextField>
-        <Input
-          name="aliases"
-          placeholder="aliases"
-          ref={aliasesInputRef}
-          className={styles.aliasesInput}
-        />
+
+        <TextField name="aliases">
+          <Input placeholder="aliases" className={styles.formTextFieldInput} />
+          <FieldError className={styles.formFieldError} />
+        </TextField>
+
         <Button type="submit" className={styles.button}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -125,10 +131,7 @@ export function MemberToolbar() {
             </g>
           </svg>
         </Button>
-        {errorMessage && (
-          <span className={styles.errorMessage}>{errorMessage}</span>
-        )}
-      </form>
+      </Form>
     </div>
   );
 }

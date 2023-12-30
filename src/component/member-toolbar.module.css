@@ -21,11 +21,30 @@
 }
 
 .tag {
-  & > div {
+  display: flex;
+  align-items: center;
+  margin-inline-start: 0.5em;
+  word-break: keep-all;
+
+  [slot="remove"] {
+    padding: 0;
+    background: none;
+    border: none;
+    height: 40px;
+    width: 32px;
     display: flex;
+    justify-content: center;
     align-items: center;
-    margin-inline-start: 10px;
-    word-break: keep-all;
+    box-sizing: border-box;
+    font-size: 22px;
+    color: #666;
+    cursor: pointer;
+    transition: color 200ms;
+    outline: none;
+
+    &[data-hovered] {
+      color: #111;
+    }
   }
 }
 
@@ -33,43 +52,40 @@
   display: flex;
   justify-content: start;
   align-items: center;
+  gap: 5px;
+  border-left: 1px solid #ccc;
+  margin: 0.75em 0;
 }
 
-.nameInput {
-  padding: 5px;
-  border-radius: 4px 0 0 4px;
-  border: 1px solid #ccc;
-  width: 10em;
-}
-
-.aliasesInput {
-  padding: 5px;
-  border-radius: 0 4px 4px 0;
-  border: 1px solid #ccc;
-  margin-inline-start: 2px;
-  width: 10em;
-}
-
-.button {
-  padding: 0;
-  background: none;
-  border: none;
-  height: 40px;
-  width: 32px;
+.formTextField {
   display: flex;
-  justify-content: center;
+  justify-content: start;
   align-items: center;
-  box-sizing: border-box;
-  font-size: 22px;
-  color: #666;
-  cursor: pointer;
+  margin-inline-start: 10px;
+}
 
-  &:hover {
-    color: #111;
+.formTextFieldInput {
+  padding: 5px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  width: 10em;
+
+  /* invalid */
+  &[aria-invalid="true"] {
+    border-color: red;
   }
 }
 
-.removeButton {
+.formFieldError {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  margin-inline-start: 10px;
+  color: red;
+  font-size: 0.8em;
+}
+
+.button {
   padding: 0;
   background: none;
   border: none;
