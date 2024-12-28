@@ -8,7 +8,7 @@ import {
   $createTextNode,
   $getSelection,
   $isRangeSelection,
-  TextNode,
+  type TextNode,
 } from "lexical";
 import { useCallback, useMemo, useState } from "react";
 import { createPortal } from "react-dom";
@@ -23,7 +23,7 @@ class MemberOption extends MenuOption {
     title: string,
     options: {
       keywords?: Array<string>;
-    }
+    },
   ) {
     super(title);
     this.title = title;
@@ -49,14 +49,14 @@ function MemberMenuItem({
     className += " selected";
   }
   return (
+    // biome-ignore lint/a11y/useKeyWithClickEvents: <explanation>
     <li
       key={option.key}
       tabIndex={-1}
       className={className}
       ref={option.setRefElement}
-      role="option"
       aria-selected={isSelected}
-      id={"typeahead-item-" + index}
+      id={`typeahead-item-${index}`}
       onMouseEnter={onMouseEnter}
       onClick={onClick}
     >
@@ -86,10 +86,10 @@ export function EmojiPickerPlugin({ members }: EmojiPickerPluginProps) {
             ({ name, aliases }) =>
               new MemberOption(name, {
                 keywords: aliases,
-              })
+              }),
           )
         : [],
-    [members]
+    [members],
   );
 
   const checkForTriggerMatch = useBasicTypeaheadTriggerMatch("@", {
@@ -103,7 +103,7 @@ export function EmojiPickerPlugin({ members }: EmojiPickerPluginProps) {
           ? new RegExp(queryString, "gi").exec(option.title) ||
             option.keywords != null
             ? option.keywords.some((keyword: string) =>
-                new RegExp(queryString, "gi").exec(keyword)
+                new RegExp(queryString, "gi").exec(keyword),
               )
             : false
           : memberOptions;
@@ -115,7 +115,7 @@ export function EmojiPickerPlugin({ members }: EmojiPickerPluginProps) {
     (
       selectedOption: MemberOption,
       nodeToRemove: TextNode | null,
-      closeMenu: () => void
+      closeMenu: () => void,
     ) => {
       editor.update(() => {
         const selection = $getSelection();
@@ -133,7 +133,7 @@ export function EmojiPickerPlugin({ members }: EmojiPickerPluginProps) {
         closeMenu();
       });
     },
-    [editor]
+    [editor],
   );
 
   return (
@@ -144,7 +144,7 @@ export function EmojiPickerPlugin({ members }: EmojiPickerPluginProps) {
       options={options}
       menuRenderFn={(
         anchorElementRef,
-        { selectedIndex, selectOptionAndCleanUp, setHighlightedIndex }
+        { selectedIndex, selectOptionAndCleanUp, setHighlightedIndex },
       ) => {
         if (anchorElementRef.current == null || options.length === 0) {
           return null;
@@ -172,7 +172,7 @@ export function EmojiPickerPlugin({ members }: EmojiPickerPluginProps) {
                   ))}
                 </ul>
               </div>,
-              anchorElementRef.current
+              anchorElementRef.current,
             )
           : null;
       }}

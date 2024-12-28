@@ -7,14 +7,17 @@ export function HashtagViewer() {
   const [data] = useAtom(hashtagAtom);
 
   // data を hashtag ごとにグルーピングする
-  const groupedData = Object.values(data).reduce((acc, cur) => {
-    if (acc[cur.hashtag]) {
-      acc[cur.hashtag].push(cur.text);
-    } else {
-      acc[cur.hashtag] = [cur.text];
-    }
-    return acc;
-  }, {} as Record<string, string[]>);
+  const groupedData = Object.values(data).reduce(
+    (acc, cur) => {
+      if (acc[cur.hashtag]) {
+        acc[cur.hashtag].push(cur.text);
+      } else {
+        acc[cur.hashtag] = [cur.text];
+      }
+      return acc;
+    },
+    {} as Record<string, string[]>,
+  );
 
   return (
     <div id="hashtags" className={styles.root}>
