@@ -61,12 +61,13 @@ export function MemberToolbar() {
             height="20"
             viewBox="0 0 24 24"
           >
+            <title>Members</title>
             <g fill="none" stroke="currentColor" strokeWidth="1.5">
-              <circle cx="10" cy="6" r="4"></circle>
+              <circle cx="10" cy="6" r="4" />
               <path
                 strokeLinecap="round"
                 d="M21 10h-2m0 0h-2m2 0V8m0 2v2m-1.003 6c.003-.164.003-.331.003-.5c0-2.485-3.582-4.5-8-4.5s-8 2.015-8 4.5S2 22 10 22c2.231 0 3.84-.157 5-.437"
-              ></path>
+              />
             </g>
           </svg>
         </span>
@@ -81,9 +82,10 @@ export function MemberToolbar() {
                   height="1em"
                   viewBox="0 0 24 24"
                 >
+                  <title>Remove</title>
                   <g fill="none" stroke="currentColor" strokeWidth="1.5">
-                    <circle cx="12" cy="12" r="10"></circle>
-                    <path strokeLinecap="round" d="M15 12H9"></path>
+                    <circle cx="12" cy="12" r="10" />
+                    <path strokeLinecap="round" d="M15 12H9" />
                   </g>
                 </svg>
               </Button>
@@ -122,12 +124,13 @@ export function MemberToolbar() {
             height="1em"
             viewBox="0 0 24 24"
           >
+            <title>Add</title>
             <g fill="none" stroke="currentColor" strokeWidth="1.5">
-              <circle cx="12" cy="12" r="10"></circle>
+              <circle cx="12" cy="12" r="10" />
               <path
                 strokeLinecap="round"
                 d="M15 12h-3m0 0H9m3 0V9m0 3v3"
-              ></path>
+              />
             </g>
           </svg>
         </Button>
