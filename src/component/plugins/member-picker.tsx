@@ -50,7 +50,7 @@ function MemberMenuItem({
   }
   return (
     // biome-ignore lint/a11y/useKeyWithClickEvents: <explanation>
-<li
+    <li
       key={option.key}
       tabIndex={-1}
       className={className}

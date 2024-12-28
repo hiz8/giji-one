@@ -127,10 +127,7 @@ export function MemberToolbar() {
             <title>Add</title>
             <g fill="none" stroke="currentColor" strokeWidth="1.5">
               <circle cx="12" cy="12" r="10" />
-              <path
-                strokeLinecap="round"
-                d="M15 12h-3m0 0H9m3 0V9m0 3v3"
-              />
+              <path strokeLinecap="round" d="M15 12h-3m0 0H9m3 0V9m0 3v3" />
             </g>
           </svg>
         </Button>
